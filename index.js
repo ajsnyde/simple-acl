@@ -13,9 +13,9 @@ module.exports = (function() {
   var shim = function(obj, action) {
     var func = obj[action];
 
-    return function(grantee, resource, callback) {
+    return function(grantee, resource, method, callback) {
       acl.emit(action, grantee, resource);
-      func.call(obj, grantee, resource, callback);
+      func.call(obj, grantee, resource, method, callback);
     };
   };
 
@@ -30,8 +30,8 @@ module.exports = (function() {
   };
 
   // dud function (replaced by .use)
-  acl.grant = function(grantee, resource, callback) { };
-  acl.assert = function(grantee, resource, callback) { };
+  acl.grant = function(grantee, resource, method, callback) { };
+  acl.assert = function(req, callback) { };
   acl.revoke = function(grantee, resource, callback) { };
 
   // defaults to MemoryStore on first use
